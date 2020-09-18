@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/SergiySeletsky/Unified/init/docs/logo.png" width="128" height="128" />
 
-# **Unified Id** - identity of your data.
+# **Unified Id** - the identity of your data.
 
 [![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
 [![Build status](https://ci.appveyor.com/api/projects/status/24wqqq91u0arkf5t)](https://ci.appveyor.com/project/RobIII/idgen)
@@ -10,7 +10,11 @@ Unified Id available for .NET as [Nuget package](https://www.nuget.org/packages/
 
 ## Why
 
-In certain situations you need a low-latency, distributed, uncoordinated, (roughly) time ordered, compact and highly available Id generation system. This project was inspired by [Twitter's Snowflake](https://github.com/twitter/snowflake) project which has been retired. Note that this project was inspired by Snowflake but is not an *exact* implementation. This library provides a basis for Id generation; it does **not** provide a service for handing out these Id's nor does it provide generator-id ('worker-id') coordination.
+In certain situations you need a low-latency, distributed, (roughly) time ordered, compact and highly available Id generation system.
+This project was inspired by [Twitter's Snowflake](https://github.com/twitter/snowflake) project which has been retired. Note that this project was inspired by Snowflake but is not an *exact* implementation.
+This library provides a basis for Id generation; it does **not** provide a service for handing out these Id's nor does it provide generator-id ('worker-id') coordination.
+
+Compact only 8 byte or 13 symbols in human-readable format
 
 ## How it works
 
