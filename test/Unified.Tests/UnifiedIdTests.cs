@@ -17,6 +17,7 @@ namespace Unified.Tests
         [Fact]
         public void HexTest()
         {
+            var a = UnifiedId.FromString("Unified");
             var val = "AGQ8BJPM1IA7V";
             var id = UnifiedId.Parse(val);
             var val2 = id.ToString();

@@ -415,6 +415,11 @@ namespace Unified
         /// <param name="context">StreamingContext.</param>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
+            if (info == null)
+            {
+                throw new ArgumentNullException(nameof(info));
+            }
+
             info.AddValue(nameof(hash), hash, typeof(ulong));
         }
 
