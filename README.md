@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/SergiySeletsky/Unified/init/docs/logo.png" width="128" height="128" />
 
-# **Unified Id** - identity of your data 🌐
+# **Unified Id** - identity of your data.
 
 [![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
 [![Build status](https://ci.appveyor.com/api/projects/status/24wqqq91u0arkf5t)](https://ci.appveyor.com/project/RobIII/idgen)
