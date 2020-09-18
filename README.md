@@ -1,5 +1,5 @@
 <img src="https://raw.githubusercontent.com/SergiySeletsky/Unified/init/docs/logo.png" width="128" height="128" />
-#Unified Id
+# Unified Id
 
 [![Build status](https://ci.appveyor.com/api/projects/status/24wqqq91u0arkf5t)](https://ci.appveyor.com/project/RobIII/idgen) <a href="https://www.nuget.org/packages/IdGen/"><img src="http://img.shields.io/nuget/v/IdGen.svg?style=flat-square" alt="NuGet version" height="18"></a>
 
@@ -165,4 +165,4 @@ The generated 2.x ID's are still compatible with 3.x ID's. This release is mostl
 
 <hr>
 
-Icon made by [Freepik](http://www.flaticon.com/authors/freepik) from [www.flaticon.com](http://www.flaticon.com) is licensed by [CC 3.0](http://creativecommons.org/licenses/by/3.0/).
+© 2020 Sergiy Seletsky. All rights reserved.
