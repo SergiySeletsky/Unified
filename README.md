@@ -1,8 +1,10 @@
 <img src="https://raw.githubusercontent.com/SergiySeletsky/Unified/init/docs/logo.png" width="128" height="128" />
 
-# Unified Id
+# **Unified Id** - identity of your data 🌐
 
-[![Build status](https://ci.appveyor.com/api/projects/status/24wqqq91u0arkf5t)](https://ci.appveyor.com/project/RobIII/idgen) <a href="https://www.nuget.org/packages/IdGen/"><img src="http://img.shields.io/nuget/v/IdGen.svg?style=flat-square" alt="NuGet version" height="18"></a>
+[![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
+[![Build status](https://ci.appveyor.com/api/projects/status/24wqqq91u0arkf5t)](https://ci.appveyor.com/project/RobIII/idgen)
+<a href="https://www.nuget.org/packages/IdGen/"><img src="http://img.shields.io/nuget/v/IdGen.svg?style=flat-square" alt="NuGet version" height="18"></a>
 
 Unified Id available for .NET as [Nuget package](https://www.nuget.org/packages/Unified)
 
