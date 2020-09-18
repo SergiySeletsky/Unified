@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Unified is immutable high performance Id library.</Description>
+    <PackageProjectUrl>https://github.com/SergiySeletsky/Unified</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SergiySeletsky/Unified</RepositoryUrl>
+    <PackageTags>netcore</PackageTags>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <SignAssembly>false</SignAssembly>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+</Project>

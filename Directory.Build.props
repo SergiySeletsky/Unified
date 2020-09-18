@@ -1,0 +1,23 @@
+<Project>
+  <PropertyGroup Label="Projects metadata">
+    <Authors>Sergiy Seletsky</Authors>
+    <Company>Microsoft</Company>
+    <Copyright>Copyright © Intellias 2020</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <DebugType>Full</DebugType>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Label="Common properties">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>..\..\code.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup Label="Analyzer packages">
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.7.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="3.7.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="3.3.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.NetCore.Analyzers" Version="3.3.0" PrivateAssets="all" />
+    <PackageReference Include="SecurityCodeScan" Version="3.5.3" PrivateAssets="all" />
+    <PackageReference Include="Text.Analyzers" Version="2.6.4" PrivateAssets="all" />
+  </ItemGroup>
+</Project>
