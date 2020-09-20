@@ -6,7 +6,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/24wqqq91u0arkf5t)](https://ci.appveyor.com/project/RobIII/idgen)
 <a href="https://www.nuget.org/packages/IdGen/"><img src="http://img.shields.io/nuget/v/IdGen.svg?style=flat-square" alt="NuGet version" height="18"></a>
 
-Unified Id available for .NET as [Nuget package](https://www.nuget.org/packages/Unified)
+**Unified Id** available for .NET as [Nuget package](https://www.nuget.org/packages/Unified)
 
 ## Why
 
