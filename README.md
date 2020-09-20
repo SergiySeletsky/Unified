@@ -48,22 +48,21 @@ The [`DefaultTimeSource`](IdGen/DefaultTimeSource.cs) relies on a [`Stopwatch`](
 Install the [Nuget package](https://www.nuget.org/packages/IdGen) and write the following code:
 
 ```c#
-using IdGen;
+using Unified;
 using System.Linq;
 
 class Program
 {
     static void Main(string[] args)
     {
-        var generator = new IdGenerator(0);
-        var id = generator.CreateId();
+        string id = UnifiedId.NewId();
     }
 }
 ```
 
 Voila. You have created your first Id! Want to create 100 Id's? Instead of:
 
-`var id = generator.CreateId();`
+`var id = UnifiedId.NewId();`
 
 write:
 
@@ -137,14 +136,6 @@ IdGen also provides an `ITimeSouce` interface; this can be handy for [unittestin
   <configSections>
     <section name="idGenSection" type="IdGen.Configuration.IdGeneratorsSection, IdGen.Configuration" />
   </configSections>
-
-  <idGenSection>
-    <idGenerators>
-      <idGenerator name="foo" id="123"  epoch="2016-01-02T12:34:56" timestampBits="39" generatorIdBits="11" sequenceBits="13" tickDuration="0:00:00.001" />
-      <idGenerator name="bar" id="987"  epoch="2016-02-01 01:23:45" timestampBits="20" generatorIdBits="21" sequenceBits="22" />
-      <idGenerator name="baz" id="2047" epoch="2016-02-29"          timestampBits="21" generatorIdBits="21" sequenceBits="21" sequenceOverflowStrategy="SpinWait" />
-    </idGenerators>
-  </idGenSection>
 
 </configuration>
 ```

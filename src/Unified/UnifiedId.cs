@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
@@ -25,12 +26,12 @@ namespace Unified
         /// <summary>
         /// HEX x32 Length should be 13 symbols.
         /// </summary>
-        private const int Length = 13;
+        private const byte Length = 13;
 
         /// <summary>
         /// Shift for (x32 >> 5 == 1) dimensions.
         /// </summary>
-        private const int X32Shift = 5;
+        private const byte X32Shift = 5;
 
         /// <summary>
         /// FNV x64 Prime https://en.wikipedia.org/wiki/Prime_number.
@@ -240,22 +241,27 @@ namespace Unified
         /// <summary>
         /// Get uniform virtual partition for UnifiedId.
         /// </summary>
-        /// <param name="tier">Partitioning tier. Default range Standard 512 partitions 00-FV.</param>
+        /// <param name="length">Partitioning key length. Default range 16K partitions 000-FVV.</param>
         /// <returns>Uniform virtual partition.</returns>
-        public string PartitionKey(Tier tier = Tier.Standard)
+        public string PartitionKey(byte length = 3)
         {
-            return NewHex(hash, (int)tier);
+            if (length == 0 || length >= Length)
+            {
+                throw new ArgumentOutOfRangeException($"Argument {nameof(length)} is out of range, allowed value from 1 to 12.");
+            }
+
+            return NewHex(hash, length);
         }
 
         /// <summary>
         /// Get fixed-string virtual partition for UnifiedId. Slower but provide partition count configuration. 
         /// </summary>
-        /// <param name="count">Partition count. Default range 000-999.</param>
+        /// <param name="count">Partition count. Default range 0000-9999.</param>
         /// <returns>Fixed-string virtual partition.</returns>
-        public string PartitionKeyNumberString(ushort count = 999)
+        public string PartitionNumberAsString(uint count = 9999)
         {
-            var partition = hash / (ulong.MaxValue / count);
-            var digits = Convert.ToInt32(Math.Log10(count) + 1);
+            var partition = PartitionNumber(count);
+            var digits = Convert.ToInt32(Math.Floor(Math.Log10(count)) + 1);
             return $"{partition}".PadLeft(digits, '0');
         }
 
@@ -263,9 +269,14 @@ namespace Unified
         /// Get numbered virtual partition for UnifiedId. Provide partition count configuration. 
         /// </summary>
         /// <param name="count">Partition count.</param>
-        /// <returns>Numeric virtual partition. Default range 0-1024.</returns>
-        public ulong PartitionKeyNumberUInt64(ushort count = 1024)
+        /// <returns>Numeric virtual partition. Default range 0-32768.</returns>
+        public ulong PartitionNumber(uint count = 32768)
         {
+            if (count == 0 || count > ushort.MaxValue)
+            {
+                throw new ArgumentOutOfRangeException($"Argument {nameof(count)} is out of range, allowed value from 1 to {ushort.MaxValue}.");
+            }
+
             return hash / (ulong.MaxValue / count);
         }
 
@@ -286,9 +297,14 @@ namespace Unified
                 throw new FormatException($"Argument '{nameof(hex)}'({hex}) should have length of {Length} symbols, actual length is {hex.Length} symbols.");
             }
 
-            foreach(var symbol in hex)
+            if(!Array.Exists(Symbols.Take(16).ToArray(), x => x == hex[0]))
             {
-                if(!char.IsUpper(symbol) && !Array.Exists(Symbols, x => x == symbol))
+                throw new FormatException($"Argument '{nameof(hex)}'({hex}) should contain only allowed capital symbols from '0' to 'F' for first symbol.");
+            }
+
+            foreach (var symbol in hex)
+            {
+                if(!char.IsUpper(symbol) || !Array.Exists(Symbols, x => x == symbol))
                 {
                     throw new FormatException($"Argument '{nameof(hex)}'({hex}) should contain only allowed capital symbols from '0' to 'V'.");
                 }
@@ -319,9 +335,15 @@ namespace Unified
                 return false;
             }
 
+            if (!Array.Exists(Symbols.Take(16).ToArray(), x => x == hex[0]))
+            {
+                id = Empty;
+                return false;
+            }
+
             foreach (var symbol in hex)
             {
-                if (!char.IsUpper(symbol) && !Array.Exists(Symbols, x => x == symbol))
+                if (!char.IsUpper(symbol) || !Array.Exists(Symbols, x => x == symbol))
                 {
                     id = Empty;
                     return false;
@@ -367,29 +389,46 @@ namespace Unified
         /// <summary>
         /// Generates new UnifiedId from byte[].
         /// </summary>
-        /// <param name="guid">GUID to generate new hash.</param>
+        /// <param name="id">GUID to generate new hash.</param>
         /// <returns>UnifiedId.</returns>
-        public static UnifiedId FromGuid(Guid guid)
+        public static UnifiedId FromGuid(Guid id)
         {
-            return FromBytes(guid.ToByteArray());
+            if(id == Guid.Empty)
+            {
+                throw new ArgumentOutOfRangeException($"Argument {nameof(id)} should not be empty.");
+            }
+
+            return FromBytes(id.ToByteArray());
         }
 
         /// <summary>
-        /// Explicit operation from UInt64.
+        /// Generate new UnifiedId from UInt64.
         /// </summary>
         /// <returns>UnifiedId.</returns>
-        public static UnifiedId FromUInt64(ulong hash)
+        public static UnifiedId FromUInt64(ulong number)
         {
-            return new UnifiedId(hash);
+            if (number == 0)
+            {
+                throw new ArgumentOutOfRangeException($"Argument {nameof(number)} should not be 0.");
+            }
+
+            var bytes = BitConverter.GetBytes(number);
+            return FromBytes(bytes);
         }
 
         /// <summary>
-        /// Explicit operation from Int64.
+        /// Generate new UnifiedId from Int64.
         /// </summary>
         /// <returns>UnifiedId.</returns>
-        public static UnifiedId FromInt64(long hash)
+        public static UnifiedId FromInt64(long number)
         {
-            return new UnifiedId(hash);
+            if (number == 0)
+            {
+                throw new ArgumentOutOfRangeException($"Argument {nameof(number)} should not be 0.");
+            }
+
+            var bytes = BitConverter.GetBytes(number);
+            return FromBytes(bytes);
         }
 
         /// <summary>
@@ -415,12 +454,7 @@ namespace Unified
         /// <param name="context">StreamingContext.</param>
         public void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            if (info == null)
-            {
-                throw new ArgumentNullException(nameof(info));
-            }
-
-            info.AddValue(nameof(hash), hash, typeof(ulong));
+            info?.AddValue(nameof(hash), hash, typeof(ulong));
         }
 
         /// <inheritdoc/>
@@ -430,7 +464,7 @@ namespace Unified
         }
 
         /// <summary>
-        /// ToUInt64.
+        /// Returns UInt64.
         /// </summary>
         /// <returns>ULong hash.</returns>
         public ulong ToUInt64()
@@ -451,7 +485,24 @@ namespace Unified
         /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            return base.Equals(obj);
+            if (obj is ulong castedUInt64)
+            {
+                return Equals(castedUInt64);
+            }
+            if (obj is long castedInt64)
+            {
+                return Equals(castedInt64);
+            }
+            if (obj is string castedString)
+            {
+                return Equals(castedString);
+            }
+            if (obj is UnifiedId castedUnifiedId)
+            {
+                return Equals(castedUnifiedId);
+            }
+
+            return false;
         }
 
         /// <inheritdoc/>
@@ -463,14 +514,9 @@ namespace Unified
         /// <inheritdoc/>
         public int CompareTo(object obj)
         {
-            if (obj == null)
+            if (obj == null || !(obj is UnifiedId))
             {
                 return 1;
-            }
-
-            if (!(obj is UnifiedId))
-            {
-                throw new ArgumentException($"Argument {nameof(obj)} must be UnifiedId.");
             }
 
             var other = (UnifiedId)obj;
@@ -573,7 +619,7 @@ namespace Unified
         /// <param name="hash">Hash.</param>
         /// <param name="length">Length of HEX. Should be 13 for full x32 encode.</param>
         /// <returns>HEX.</returns>
-        private static string NewHex(ulong hash, int length = Length)
+        private static string NewHex(ulong hash, byte length = Length)
         {
             if (hash == 0)
             {
@@ -581,10 +627,10 @@ namespace Unified
             }
 
             var hex = new char[length];
-            for (var grade = 0; grade < length; grade++)
+            for (byte grade = 0; grade < length; grade++)
             {
                 // slice = hash >> slice(shift * grade)
-                var slice = (uint)(hash >> (X32Shift * (Length - grade - 1)));
+                var slice = hash >> (X32Shift * (Length - grade - 1));
 
                 // index = slice & 31 = (32(1<<shift) - 1)
                 var index = (byte)(slice & 31);
@@ -602,7 +648,7 @@ namespace Unified
         private static ulong Decode(string hex)
         {
             ulong hash = 0;
-            for (var grade = 0; grade < hex.Length; grade++)
+            for (byte grade = 0; grade < hex.Length; grade++)
             {
                 var index = (ulong)Array.LastIndexOf(Symbols, hex[grade]);
 
