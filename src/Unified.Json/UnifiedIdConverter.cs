@@ -12,7 +12,7 @@ namespace Unified.Json
         /// <inheritdoc/>
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(UnifiedId);
+            return objectType == typeof(UnifiedId) || objectType == typeof(Nullable<UnifiedId>);
         }
 
         /// <inheritdoc/>
