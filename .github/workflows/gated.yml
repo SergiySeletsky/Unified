@@ -1,0 +1,78 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: '**/*.sln'
+    noCache: true
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '**/*.sln'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+  displayName: 'Prepare Sonar Analysis'
+  inputs:
+    SonarCloud: Unified
+    organization: testasm
+    projectKey: 'testasm'
+    projectName: 'Unified'
+    projectVersion: '$(Build.BuildNumber)'
+    extraProperties: |
+     sonar.language=cs
+     sonar.verbose=true
+     sonar.exclusions=bin/**/*,obj/**/*
+     sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/**/*.trx
+     sonar.cs.opencover.reportsPaths=$(Agent.TempDirectory)/**/*.opencover.xml
+
+- task: DotNetCoreCLI@2
+  displayName: 'Build Sonar'
+  inputs:
+    projects: '**/*.sln'
+    arguments: '--configuration $(BuildConfiguration)'
+
+#Task group has not been exported, task groups are not supported yet
+
+- task: DotNetCoreCLI@2
+  displayName: 'Test CQRS'
+  inputs:
+    command: test
+    projects: '**/*CQRS.Tests.csproj'
+    arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true "/p:CoverletOutputFormat=\"opencover,cobertura\"" /p:CoverletOutput=$(Agent.TempDirectory)/Coverage/ /p:Exclude="[xunit*]*"'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Agent.TempDirectory)/Coverage/*.cobertura.xml'
+  continueOnError: true
+
+- task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+  displayName: 'Sonar Analysis'
+
+- task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+  displayName: 'Publish Quality Gate Result'
+  inputs:
+    pollingTimeoutSec: 60
+  continueOnError: true
+  timeoutInMinutes: 60
+
+- task: alanwales.resharper-code-analysis.custom-build-task.ResharperCli@2
+  displayName: 'R# Analysis'
+  inputs:
+    solutionOrProjectPath: Unified.sln
+    commandLineInterfacePath: '$(Agent.HomeDirectory)\Lib\Resharper'
+

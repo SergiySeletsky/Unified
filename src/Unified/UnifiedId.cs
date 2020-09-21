@@ -310,9 +310,9 @@ namespace Unified
                 }
             }
 
-            var hash = Decode(hex);
+            var decodedHash = Decode(hex);
 
-            return new UnifiedId(hash);
+            return new UnifiedId(decodedHash);
         }
 
         /// <summary>
@@ -350,9 +350,9 @@ namespace Unified
                 }
             }
 
-            var hash = Decode(hex);
+            var decodedHash = Decode(hex);
 
-            id = new UnifiedId(hash);
+            id = new UnifiedId(decodedHash);
 
             return true;
         }
