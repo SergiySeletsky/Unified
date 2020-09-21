@@ -85,24 +85,33 @@ namespace Unified.Tests
         [Fact]
         public void PartitionKeyTest()
         {
-            var dict = new Dictionary<string, List<UnifiedId>>();
-            var all = 100000;
+            // Let's emulate the partitioned database.
+            var db = new Dictionary<string, List<UnifiedId>>();
 
-            var partitions = 16U;
+            // We will use 10M records, just to execute it fast.
+            var all = 10000000;
             for (var i = 0; i <= all; i++)
             {
-                var x = UnifiedId.NewId();
-                var p = x.PartitionKey(1);
-                if (!dict.ContainsKey(p))
+                // Generate random Id.
+                var id = UnifiedId.NewId();
+
+                // Get it's partition key. Number of partitions could be customized, default 16K.
+                var partition = id.PartitionKey(1);
+
+                // Initialize partitions in your DB.
+                if (!db.ContainsKey(partition))
                 {
-                    dict.Add(p, new List<UnifiedId>());
+                    db.Add(partition, new List<UnifiedId>());
                 }
 
-                dict[p].Add(x);
+                // Add values to partitions.
+                db[partition].Add(id);
             }
 
-            float max = dict.Max(x => x.Value.Count);
-            float min = dict.Min(x => x.Value.Count);
+            var partitions = 16U;
+
+            float max = db.Max(x => x.Value.Count);
+            float min = db.Min(x => x.Value.Count);
 
             var diff = max - min;
 
