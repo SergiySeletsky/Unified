@@ -5,17 +5,21 @@
 [![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/SergiySeletsky/Unified/compare)
 [![Gated](https://github.com/SergiySeletsky/Unified/workflows/Gated/badge.svg)](https://github.com/SergiySeletsky/Unified/actions?query=workflow%3AGated)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Unified&metric=alert_status)](https://sonarcloud.io/dashboard?id=Unified)
-<a href="https://www.nuget.org/packages/IdGen/"><img src="http://img.shields.io/nuget/v/IdGen.svg?style=flat-square" alt="NuGet version" height="18"></a>
-
-**Unified Id** available for .NET as [Nuget package](https://www.nuget.org/packages/Unified)
+[![Nuget](https://img.shields.io/nuget/v/Unified)](https://www.nuget.org/packages/Unified)
+**Unified Id** available for .NET as [NuGet package](https://www.nuget.org/packages/Unified)
 
 ## Why
 
-In certain situations you need a low-latency, distributed, (roughly) time ordered, compact and highly available Id generation system.
-This project was inspired by [Twitter's Snowflake](https://github.com/twitter/snowflake) project which has been retired. Note that this project was inspired by Snowflake but is not an *exact* implementation.
-This library provides a basis for Id generation; it does **not** provide a service for handing out these Id's nor does it provide generator-id ('worker-id') coordination.
-
-Compact only 8 byte or 13 symbols in human-readable format
+What is Unified Id? If GUID is too heavy for you but you need a random global Id that can be used as a string or long basic type, you are in right place.
+What are the main advantages?
+| Feature | Unified | GUID |
+| ------ | ------ | ------ |
+| Size | 8 byte (13 as string) | 16 byte (36 as string)
+| Partitioning | Build-in | No, external can be added
+| Collisions | 0.00000001% in 10B IDs | 50% in 2.7e18 IDs
+| Cast | implicit(string, ulong, long) | explicit(byte[], Parse/ToString)
+| Generate | Build-in(byte[], string, GUID) | No, only random NewGuid
+| Null/Empty-handling | Friendly to Empty | Exception
 
 ## How it works
 

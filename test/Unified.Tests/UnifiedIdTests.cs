@@ -10,6 +10,7 @@ namespace Unified.Tests
         [Fact]
         public void UnifiedIdTest()
         {
+            var stl = Guid.NewGuid().ToString().Length;
             var id = new UnifiedId();
             Assert.Equal(UnifiedId.Empty, id);
 
