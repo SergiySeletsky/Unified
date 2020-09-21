@@ -530,15 +530,9 @@ namespace Unified
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            return hash.GetHashCode();
-        }
-
-        /// <inheritdoc/>
         public int CompareTo(object obj)
         {
-            if (obj == null || !(obj is UnifiedId))
+            if (!(obj is UnifiedId))
             {
                 return 1;
             }
@@ -562,12 +556,6 @@ namespace Unified
             }
 
             return 0;
-        }
-
-        /// <inheritdoc/>
-        public object Clone()
-        {
-            return new UnifiedId(this.hash);
         }
 
         /// <inheritdoc/>
@@ -595,6 +583,18 @@ namespace Unified
             return ToInt64().CompareTo(other);
         }
 
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return hash.GetHashCode();
+        }
+
+        /// <inheritdoc/>
+        public object Clone()
+        {
+            return new UnifiedId(this.hash);
+        }
+
         /// <summary>
         /// Generate x64 FNV hash based on data bytes.
         /// </summary>
@@ -602,15 +602,15 @@ namespace Unified
         /// <returns>ulong hash.</returns>
         private static ulong NewHash(byte[] bytes)
         {
-            var hash = Offset; // FNV offset basis
+            var fnv = Offset; // FNV offset basis
 
             foreach (var @byte in bytes)
             {
-                hash ^= @byte;
-                hash *= Prime; // FNV prime
+                fnv ^= @byte;
+                fnv *= Prime; // FNV prime
             }
 
-            return hash;
+            return fnv;
         }
 
         /// <summary>
@@ -647,17 +647,17 @@ namespace Unified
         /// <returns>Unsigned x64 integer.</returns>
         private static ulong Decode(string hex)
         {
-            ulong hash = 0;
+            ulong decodedHash = 0;
             for (byte grade = 0; grade < hex.Length; grade++)
             {
                 var index = (ulong)Array.LastIndexOf(Symbols, hex[grade]);
 
                 // slice grade and convert to number
                 var slice = index << (X32Shift * (hex.Length - grade - 1));
-                hash += slice;
+                decodedHash += slice;
             }
 
-            return hash;
+            return decodedHash;
         }
     }
 }
