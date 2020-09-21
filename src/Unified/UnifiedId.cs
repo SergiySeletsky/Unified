@@ -506,6 +506,30 @@ namespace Unified
         }
 
         /// <inheritdoc/>
+        public bool Equals(UnifiedId other)
+        {
+            return this.hash.Equals(other.hash);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(string other)
+        {
+            return NewHex(hash).Equals(other, StringComparison.InvariantCulture);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(ulong other)
+        {
+            return hash.Equals(other);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(long other)
+        {
+            return ToInt64().Equals(other);
+        }
+
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return hash.GetHashCode();
@@ -541,12 +565,6 @@ namespace Unified
         }
 
         /// <inheritdoc/>
-        public bool Equals(UnifiedId other)
-        {
-            return this.hash.Equals(other.hash);
-        }
-
-        /// <inheritdoc/>
         public object Clone()
         {
             return new UnifiedId(this.hash);
@@ -566,33 +584,15 @@ namespace Unified
         }
 
         /// <inheritdoc/>
-        public bool Equals(string other)
-        {
-            return NewHex(hash).Equals(other, StringComparison.InvariantCulture);
-        }
-
-        /// <inheritdoc/>
         public int CompareTo(ulong other)
         {
             return hash.CompareTo(other);
         }
 
         /// <inheritdoc/>
-        public bool Equals(ulong other)
-        {
-            return hash.Equals(other);
-        }
-
-        /// <inheritdoc/>
         public int CompareTo(long other)
         {
             return ToInt64().CompareTo(other);
-        }
-
-        /// <inheritdoc/>
-        public bool Equals(long other)
-        {
-            return ToInt64().Equals(other);
         }
 
         /// <summary>
