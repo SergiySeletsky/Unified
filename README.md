@@ -2,8 +2,8 @@
 
 # **Unified Id** - the identity of your data.
 
-[![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
-![Gated](https://github.com/SergiySeletsky/Unified/workflows/Gated/badge.svg)
+[![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/SergiySeletsky/Unified/compare)
+[![Gated](https://github.com/SergiySeletsky/Unified/workflows/Gated/badge.svg)](https://github.com/SergiySeletsky/Unified/actions?query=workflow%3AGated)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Unified&metric=alert_status)](https://sonarcloud.io/dashboard?id=Unified)
 <a href="https://www.nuget.org/packages/IdGen/"><img src="http://img.shields.io/nuget/v/IdGen.svg?style=flat-square" alt="NuGet version" height="18"></a>
 
