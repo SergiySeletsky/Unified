@@ -7,24 +7,18 @@ namespace Unified.Json
     /// <summary>
     /// UnifiedIdConverter.
     /// </summary>
-    public class UnifiedIdConverter : JsonConverter
+    public class UnifiedIdConverter : JsonConverter<UnifiedId>
     {
         /// <inheritdoc/>
-        public override bool CanConvert(Type objectType)
-        {
-            return objectType == typeof(UnifiedId) || objectType == typeof(UnifiedId?);
-        }
-
-        /// <inheritdoc/>
-        public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+        public override UnifiedId ReadJson(JsonReader reader, Type objectType, UnifiedId existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             return UnifiedId.Parse(JToken.Load(reader).ToString());
         }
 
         /// <inheritdoc/>
-        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, UnifiedId value, JsonSerializer serializer)
         {
-            JToken.FromObject(value?.ToString() ?? string.Empty).WriteTo(writer);
+            JToken.FromObject(value.ToString()).WriteTo(writer);
         }
     }
 }

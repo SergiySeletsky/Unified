@@ -17,12 +17,7 @@ namespace Unified.Tests
         public UnifiedId Id { set; get; }
     }
 
-    public class TestContractNull
-    {
-        public UnifiedId? IdNull { set; get; }
-    }
-
-    public class SerializeTest
+    public class SerializeTests
     {
         [Fact]
         public void NewtonsoftDefaultTest()
@@ -52,22 +47,6 @@ namespace Unified.Tests
             var deserialized = JsonConvert.DeserializeObject<TestContract>(json, settings);
             Assert.Equal(contract.Id, deserialized?.Id);
         }
-
-        [Fact]
-        public void NewtonsoftNullTest()
-        {
-            var contract = new TestContractNull { IdNull = null };
-            var settings = new JsonSerializerSettings
-            {
-                Converters = new List<JsonConverter>
-                {
-                    new UnifiedIdConverter()
-                }
-            };
-            var json = JsonConvert.SerializeObject(contract, settings);
-            Assert.Equal("{\"IdNull\":null}", json);
-        }
-
 
         [Fact]
         public void DataContractTest()
