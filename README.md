@@ -6,7 +6,6 @@
 [![Gated](https://github.com/SergiySeletsky/Unified/workflows/Gated/badge.svg)](https://github.com/SergiySeletsky/Unified/actions?query=workflow%3AGated)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Unified&metric=alert_status)](https://sonarcloud.io/dashboard?id=Unified)
 [![NuGet](https://img.shields.io/nuget/v/Unified)](https://www.nuget.org/packages/Unified)
-**Unified Id** available for .NET as [NuGet package](https://www.nuget.org/packages/Unified)
 
 ## Why
 
