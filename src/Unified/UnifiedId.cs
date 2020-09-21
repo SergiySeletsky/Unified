@@ -532,7 +532,7 @@ namespace Unified
         /// <inheritdoc/>
         public int CompareTo(object obj)
         {
-            if (obj == null || !(obj is UnifiedId))
+            if (!(obj is UnifiedId))
             {
                 return 1;
             }
