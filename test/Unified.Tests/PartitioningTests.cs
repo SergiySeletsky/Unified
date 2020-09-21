@@ -88,8 +88,8 @@ namespace Unified.Tests
             // Let's emulate the partitioned database.
             var db = new Dictionary<string, List<UnifiedId>>();
 
-            // We will use 10M records, just to execute it fast.
-            var all = 10000000;
+            // We will use 100K records, just to execute it fast.
+            var all = 100000;
             for (var i = 0; i <= all; i++)
             {
                 // Generate random Id.

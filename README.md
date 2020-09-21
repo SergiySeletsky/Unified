@@ -45,7 +45,7 @@ using Unified;
 
 class Program
 {
-    static void Main)
+    static void Main()
     {
         var id = UnifiedId.NewId();
     }
