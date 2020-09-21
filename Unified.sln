@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unified.Tests", "test\Unified.Tests\Unified.Tests.csproj", "{8A179E7D-AB62-4E72-88E4-0EBA6A19AD08}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unified.Json", "src\Unified.Json\Unified.Json.csproj", "{4AB878C6-3CEC-47EE-9AED-F2D3A22199F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{8A179E7D-AB62-4E72-88E4-0EBA6A19AD08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A179E7D-AB62-4E72-88E4-0EBA6A19AD08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A179E7D-AB62-4E72-88E4-0EBA6A19AD08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AB878C6-3CEC-47EE-9AED-F2D3A22199F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AB878C6-3CEC-47EE-9AED-F2D3A22199F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AB878C6-3CEC-47EE-9AED-F2D3A22199F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AB878C6-3CEC-47EE-9AED-F2D3A22199F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
