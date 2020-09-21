@@ -23,4 +23,4 @@ jobs:
     - name: Push
       env:
           NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
-      run: dotnet nuget push "*.nupkg" -k ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push "**/*.nupkg" -k ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json --skip-duplicate
