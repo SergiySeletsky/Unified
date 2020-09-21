@@ -24,12 +24,7 @@ namespace Unified.Json
         /// <inheritdoc/>
         public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            JToken.FromObject(value.ToString()).WriteTo(writer);
+            JToken.FromObject(value?.ToString() ?? string.Empty).WriteTo(writer);
         }
     }
 }
