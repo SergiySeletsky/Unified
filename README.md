@@ -9,7 +9,8 @@
 
 ## Why
 
-What is Unified Id? If GUID is too heavy for you but you need a random global Id that can be used as a string or long basic type, you are in right place.
+What is Unified Id?
+If GUID is too heavy for your application but you need a random global Id that can be used as a string or long basic type, you are in right place.
 What are the main advantages?
 | Feature | Unified | GUID |
 | ------ | ------ | ------ |
@@ -18,7 +19,7 @@ What are the main advantages?
 | Collisions | 0.00000001% in 10B IDs | 50% in 2.7e18 IDs
 | Cast | implicit(string, ulong, long) | explicit(byte[], Parse/ToString)
 | Generate | Build-in(byte[], string, GUID) | No, only random NewGuid
-| Null/Empty-handling | Friendly to Empty | Exception
+| Null/Empty-handling | Friendly as Empty | Exception
 
 ## How it works
 
