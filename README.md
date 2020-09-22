@@ -21,21 +21,6 @@ What are the main advantages?
 | Generate | Build-in(byte[], string, GUID) | No, only random NewGuid
 | Null/Empty-handling | Friendly as Empty | Exception
 
-## How it works
-
-Unified Id generates 64 bit Id's based on GUID and utilizes all space.
-Default method of generation is GUID based using method `var id = UnifiedId.NewId()`.
-This value could be used as string converted in 32xHEX consisting of two parts.
-[KEY][UNIFIED_ID] KEY - Partition/Shard Key and UNIFIED_ID as Row Unified Key together used as the global identity.
-
-You can also generate this Id as a one-way hash using the following sources:
-
-* `UnifiedId FromGuid(Guid id)`
-* `UnifiedId FromBytes(byte[] bytes)`
-* `UnifiedId FromString(string text)`
-* `UnifiedId FromInt64(long number)`
-* `UnifiedId FromUInt64(ulong number)`
-
 ## Getting started
 
 Install the [NuGet package](https://www.nuget.org/packages/Unified) and write the following code:
@@ -85,6 +70,23 @@ class Program
     }
 }
 ```
+
+## How it works
+
+Unified Id generates 64 bit Id's based on GUID and utilizes all space.
+Default method of generation is GUID based using method `var id = UnifiedId.NewId()`.
+This value could be used as string converted in 32xHEX consisting of two parts.
+[KEY][UNIFIED_ID] KEY - Partition/Shard Key and UNIFIED_ID as Row Unified Key together used as the global identity.
+
+You can also generate this Id as a one-way hash using the following sources:
+
+* `UnifiedId FromGuid(Guid id)`
+* `UnifiedId FromBytes(byte[] bytes)`
+* `UnifiedId FromString(string text)`
+* `UnifiedId FromInt64(long number)`
+* `UnifiedId FromUInt64(ulong number)`
+
+Do you need sequential Id? `var id = new UnifiedId(DateTime.UtcNow.Ticks)`
 
 Want to save partitioned data? It's easy...
 
