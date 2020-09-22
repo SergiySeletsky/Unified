@@ -72,7 +72,14 @@ class Program
             UserId = UnifiedId.NewId();
         };
 
-        var json = JsonConvert.SerializeObject(user); // { "UserId": "AFHUTVDSGUGVQ" }
+        var settings = new JsonSerializerSettings // Could be added to global settings.
+        { 
+            Converters = new List<JsonConverter> 
+            { 
+                new UnifiedIdConverter() 
+            }
+        };
+        var json = JsonConvert.SerializeObject(user, settings); // { "UserId": "AFHUTVDSGUGVQ" }
     }
 }
 ```
