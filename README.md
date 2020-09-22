@@ -3,7 +3,7 @@
 # **Unified Id** - the identity of your data.
 
 [![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/SergiySeletsky/Unified/compare)
-[![Gated](https://github.com/SergiySeletsky/Unified/workflows/Gated/badge.svg)](https://github.com/SergiySeletsky/Unified/actions?query=workflow%3AGated)
+[![Build](https://github.com/SergiySeletsky/Unified/workflows/Build/badge.svg)](https://github.com/SergiySeletsky/Unified/actions?query=workflow:Build)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Unified&metric=alert_status)](https://sonarcloud.io/dashboard?id=Unified)
 [![NuGet](https://img.shields.io/nuget/v/Unified)](https://www.nuget.org/packages/Unified)
 
@@ -23,18 +23,17 @@ What are the main advantages?
 ## How it works
 
 Unified Id generates 64 bit Id's based on GUID and utilizes all space.
+Default method of generation is GUID based using method `var id = UnifiedId.NewId()`.
 This value could be used as string converted in 32xHEX consisting of two parts.
-[KEY][UNIFIED_ID] Key - Partition/Shard Key and Row Unified Key together used as the global identity.
+[KEY][UNIFIED_ID] KEY - Partition/Shard Key and UNIFIED_ID as Row Unified Key together used as the global identity.
 
-You can generate this Id as a one-way hash using the following sources:
+You can also generate this Id as a one-way hash using the following sources:
 
-* GUID
-* byte[]
-* string
-* long
-* ulong
-
-Default method of generation is GUID based using method `UnifiedId.NewId()`.
+* `UnifiedId FromGuid(Guid id)`
+* `UnifiedId FromBytes(byte[] bytes)`
+* `UnifiedId FromString(string text)`
+* `UnifiedId FromInt64(long number)`
+* `UnifiedId FromUInt64(ulong number)`
 
 ## Getting started
 
@@ -52,11 +51,31 @@ class Program
 }
 ```
 
-You have created your first Unified Id! Want to use it as a string or long?
+You have created your first Unified Id! Want to use it as a string `string id = UnifiedId.NewId();` or long `long id = UnifiedId.NewId();`?
 
-write:
+UnifiedId could be used as ValueObject in your entities.
 
-`string id = UnifiedId.NewId();` or `long id = UnifiedId.NewId();`
+```c#
+using Unified;
+
+class User
+{
+    public UnifiedId UserId { set; get; }
+}
+
+class Program
+{
+    static void Main()
+    {
+        var user = new User
+        {
+            UserId = UnifiedId.NewId();
+        };
+
+        var json = JsonConvert.SerializeObject(user); // { "UserId": "AFHUTVDSGUGVQ" }
+    }
+}
+```
 
 Want to save partitioned data? It's easy...
 
