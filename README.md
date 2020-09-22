@@ -51,9 +51,10 @@ class Program
 }
 ```
 
-You have created your first Unified Id! Want to use it as a string `string id = UnifiedId.NewId();` or long `long id = UnifiedId.NewId();`?
+You have created your first Unified Id!
+Want to use it as a string? `string id = UnifiedId.NewId();` or long? `long id = UnifiedId.NewId();`
 
-UnifiedId could be used as ValueObject in your entities.
+UnifiedId could be used as DDD ValueObject in your entities.
 
 ```c#
 using Unified;
