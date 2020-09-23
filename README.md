@@ -73,7 +73,31 @@ class Program
 
 ## How it works
 
-Unified Id generates 64 bit Id's based on GUID and utilizes all space.
+```c#
+using Unified;
+
+class Program
+{
+    static void Main()
+    {
+        var guid = Guid.NewGuid();
+        var id = UnifiedId.FromGuid(guid);
+        var fnv = id.ToUInt64();
+        Console.WriteLine($"{guid} => {fnv} => {id}");
+        // 8dd02ad1-62cc-4015-9502-49658ba240ae => 15834445116674749764 => DNFPVU1LD2DA4
+    }
+}
+```
+
+Unified Id generates 64bit FNV-1a Id's based on GUID and converts it to HEX32 to use as string.
+![Algorithm](https://raw.githubusercontent.com/SergiySeletsky/Unified/master/docs/algorithm.png)
+
+HEX32 is reversible, so you can convert it back from string to UInt64.
+`var id = UnifiedId.Parse("DNFPVU1LD2DA4");`
+
+Why FNV-1a 64bit? because it has the best space randomization in the case of GUID conversion, below is space representation.
+![FNV-1a](https://raw.githubusercontent.com/SergiySeletsky/Unified/master/docs/fnv-1a-space.png)
+
 Default method of generation is GUID based using method `var id = UnifiedId.NewId()`.
 This value could be used as string converted in 32xHEX consisting of two parts.
 [KEY][UNIFIED_ID] KEY - Partition/Shard Key and UNIFIED_ID as Row Unified Key together used as the global identity.
