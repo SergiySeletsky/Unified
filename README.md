@@ -33,7 +33,7 @@ class Program
 {
     static void Main()
     {
-        var id = UnifiedId.NewId();
+        var id = UnifiedId.NewId(); // AFHUTVDSGUGVQ
     }
 }
 ```
@@ -96,15 +96,15 @@ Unified Id generates 64bit FNV-1a Id's based on GUID and converts it to HEX32 to
 ![Algorithm](https://raw.githubusercontent.com/SergiySeletsky/Unified/master/docs/algorithm.png)
 
 HEX32 is reversible, so you can convert it back from string to UInt64.
-`var id = UnifiedId.Parse("DNFPVU1LD2DA4");`
+`ulong number = UnifiedId.Parse("DNFPVU1LD2DA4");`
 
 Why FNV-1a 64bit? because it has the best space randomization in the case of GUID conversion, below is space representation.
 
 ![FNV-1a](https://raw.githubusercontent.com/SergiySeletsky/Unified/master/docs/fnv-1a-space.png)
 
-Default method of generation is GUID based using method `var id = UnifiedId.NewId()`.
+Default method of generation is GUID based using method `var id = UnifiedId.NewId();`.
 
-This value could be used as string converted in 32xHEX consisting of two parts.
+This value could be used as string converted in HEX32 consisting of two parts.
 
 [KEY][UNIFIED_ID] KEY - Partition/Shard Key and UNIFIED_ID as Row Unified Key together used as the global identity.
 

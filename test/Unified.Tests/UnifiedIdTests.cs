@@ -73,6 +73,7 @@ namespace Unified.Tests
             Assert.Throws<FormatException>(() => UnifiedId.Parse("FVVVVVVVVVVVUN"));
             Assert.Throws<FormatException>(() => UnifiedId.Parse("FVVVVVVVVVVVu"));
             Assert.Throws<FormatException>(() => UnifiedId.Parse("FVVVVVVVVVVVW"));
+            Assert.Throws<FormatException>(() => UnifiedId.Parse("GVVVVVVVVVVVU"));
         }
 
         [Fact]

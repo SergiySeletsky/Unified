@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
@@ -23,7 +22,7 @@ namespace Unified
         public static readonly UnifiedId Empty;
 
         /// <summary>
-        /// HEX x32 Length should be 13 symbols.
+        /// HEX32 Length should be 13 symbols.
         /// </summary>
         private const byte Length = 13;
 
@@ -74,7 +73,7 @@ namespace Unified
         /// <summary>
         /// Initializes a new instance of the <see cref="UnifiedId"/> struct.
         /// </summary>
-        /// <param name="hex">UnifiedId HEX.</param>
+        /// <param name="hex">UnifiedId HEX32.</param>
         public UnifiedId(string hex)
         {
             hash = Parse(hex);
@@ -152,7 +151,7 @@ namespace Unified
         /// Equality operator.
         /// </summary>
         /// <param name="a">Left UnifiedId.</param>
-        /// <param name="b">Right HEX string.</param>
+        /// <param name="b">Right HEX32 string.</param>
         /// <returns>Result of equality boolean.</returns>
         public static bool operator ==(UnifiedId a, string b)
         {
@@ -163,7 +162,7 @@ namespace Unified
         /// Not equality operator.
         /// </summary>
         /// <param name="a">Left UnifiedId.</param>
-        /// <param name="b">Right HEX string.</param>
+        /// <param name="b">Right HEX32 string.</param>
         /// <returns>Result of equality boolean.</returns>
         public static bool operator !=(UnifiedId a, string b)
         {
@@ -173,7 +172,7 @@ namespace Unified
         /// <summary>
         /// Equality operator.
         /// </summary>
-        /// <param name="a">Left HEX string.</param>
+        /// <param name="a">Left HEX32 string.</param>
         /// <param name="b">Right UnifiedId.</param>
         /// <returns>Result of equality boolean.</returns>
         public static bool operator ==(string a, UnifiedId b)
@@ -184,7 +183,7 @@ namespace Unified
         /// <summary>
         /// Not equality operator.
         /// </summary>
-        /// <param name="a">Left HEX string.</param>
+        /// <param name="a">Left HEX32 string.</param>
         /// <param name="b">Right UnifiedId.</param>
         /// <returns>Result of equality boolean.</returns>
         public static bool operator !=(string a, UnifiedId b)
@@ -279,7 +278,7 @@ namespace Unified
         }
 
         /// <summary>
-        /// Parse UnifiedId HEX to UnifiedId. throws exception if invalid.
+        /// Parse UnifiedId HEX32 to UnifiedId. throws exception if invalid.
         /// </summary>
         /// <param name="hex">HEX.</param>
         /// <returns>UnifiedId.</returns>
@@ -295,14 +294,15 @@ namespace Unified
                 throw new FormatException($"Argument '{nameof(hex)}'({hex}) should have length of {Length} symbols, actual length is {hex.Length} symbols.");
             }
 
-            if(!Array.Exists(Symbols.Take(16).ToArray(), x => x == hex[0]))
+            var firstIndex = Array.LastIndexOf(Symbols, hex[0]);
+            if (firstIndex < 0 || firstIndex >= 16)
             {
                 throw new FormatException($"Argument '{nameof(hex)}'({hex}) should contain only allowed capital symbols from '0' to 'F' for first symbol.");
             }
 
             foreach (var symbol in hex)
             {
-                if(!Array.Exists(Symbols, x => x == symbol))
+                if(Array.LastIndexOf(Symbols, symbol) == -1)
                 {
                     throw new FormatException($"Argument '{nameof(hex)}'({hex}) should contain only allowed capital symbols from '0' to 'V'.");
                 }
@@ -314,7 +314,7 @@ namespace Unified
         }
 
         /// <summary>
-        /// TryParse UnifiedId HEX to UnifiedId.
+        /// TryParse UnifiedId HEX32 to UnifiedId.
         /// </summary>
         /// <param name="hex">HEX.</param>
         /// <param name="id">UnifiedId.</param>
@@ -333,7 +333,8 @@ namespace Unified
                 return false;
             }
 
-            if (!Array.Exists(Symbols.Take(16).ToArray(), x => x == hex[0]))
+            var firstIndex = Array.LastIndexOf(Symbols, hex[0]);
+            if (firstIndex < 0 || firstIndex >= 16)
             {
                 id = Empty;
                 return false;
@@ -341,8 +342,8 @@ namespace Unified
 
             foreach (var symbol in hex)
             {
-                if (!Array.Exists(Symbols, x => x == symbol))
-                {
+               if (Array.LastIndexOf(Symbols, symbol) == -1)
+               {
                     id = Empty;
                     return false;
                 }
@@ -612,11 +613,11 @@ namespace Unified
         }
 
         /// <summary>
-        /// Generate x32 HEX from ulong hash.
+        /// Generate HEX32 from ulong hash.
         /// </summary>
         /// <param name="hash">Hash.</param>
         /// <param name="length">Length of HEX. Should be 13 for full x32 encode.</param>
-        /// <returns>HEX.</returns>
+        /// <returns>HEX32.</returns>
         private static string NewHex(ulong hash, byte length = Length)
         {
             if (hash == 0)
@@ -639,19 +640,19 @@ namespace Unified
         }
 
         /// <summary>
-        /// Decode HEX to Number.
+        /// Decode HEX32 to Number.
         /// </summary>
         /// <param name="hex">String HEX.</param>s
         /// <returns>Unsigned x64 integer.</returns>
         private static ulong Decode(string hex)
         {
             ulong decodedHash = 0;
-            for (byte grade = 0; grade < hex.Length; grade++)
+            for (byte grade = 0; grade < Length; grade++)
             {
                 var index = (ulong)Array.LastIndexOf(Symbols, hex[grade]);
 
                 // slice grade and convert to number
-                var slice = index << (X32Shift * (hex.Length - grade - 1));
+                var slice = index << (X32Shift * (Length - grade - 1));
                 decodedHash += slice;
             }
 

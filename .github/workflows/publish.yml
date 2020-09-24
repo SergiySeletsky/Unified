@@ -19,7 +19,7 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Pack
-      run: dotnet pack --configuration Release --no-restore
+      run: dotnet pack -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg --configuration Release --no-restore
     - name: Push
       env:
           NUGET_TOKEN: ${{ secrets.NUGET_TOKEN }}
