@@ -81,6 +81,11 @@ namespace Unified.Tests
                 var deserialized = (TestContract)bf.Deserialize(ms);
                 Assert.Equal(contract.Id, deserialized.Id);
             }
+
+            var info = new SerializationInfo(typeof(UnifiedId), new FormatterConverter());
+            contract.Id.GetObjectData(info, default);
+            var hash = info.GetUInt64("hash");
+            Assert.Equal(contract.Id.ToUInt64(), hash);
         }
 
         [Fact]
