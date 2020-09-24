@@ -5,14 +5,14 @@
     <Description>Unified is immutable high performance Id library.</Description>
     <PackageProjectUrl>https://github.com/SergiySeletsky/Unified</PackageProjectUrl>
     <RepositoryUrl>https://github.com/SergiySeletsky/Unified</RepositoryUrl>
-    <PackageTags>scalable, unique, id, generator, distributed, partitioning, sharding, unified</PackageTags>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageTags>unified, scalable, unique, id, generator, distributed, partitioning, sharding</PackageTags>
+    <PackageReleaseNotes>Performance improvements</PackageReleaseNotes>
     <SignAssembly>false</SignAssembly>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageIcon>icon.png</PackageIcon>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
-    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
