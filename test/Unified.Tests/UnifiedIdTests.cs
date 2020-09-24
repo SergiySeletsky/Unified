@@ -74,6 +74,7 @@ namespace Unified.Tests
             Assert.Throws<FormatException>(() => UnifiedId.Parse("FVVVVVVVVVVVu"));
             Assert.Throws<FormatException>(() => UnifiedId.Parse("FVVVVVVVVVVVW"));
             Assert.Throws<FormatException>(() => UnifiedId.Parse("GVVVVVVVVVVVU"));
+            Assert.Throws<FormatException>(() => UnifiedId.Parse("WVVVVVVVVVVVU"));
         }
 
         [Fact]
@@ -93,6 +94,10 @@ namespace Unified.Tests
             Assert.False(UnifiedId.TryParse("FVVVVVVVVVVVu", out parsedId));
             Assert.Equal(UnifiedId.Empty, parsedId);
             Assert.False(UnifiedId.TryParse("FVVVVVVVVVVVW", out parsedId));
+            Assert.Equal(UnifiedId.Empty, parsedId);
+            Assert.False(UnifiedId.TryParse("GVVVVVVVVVVVU", out parsedId));
+            Assert.Equal(UnifiedId.Empty, parsedId);
+            Assert.False(UnifiedId.TryParse("WVVVVVVVVVVVU", out parsedId));
             Assert.Equal(UnifiedId.Empty, parsedId);
         }
 
