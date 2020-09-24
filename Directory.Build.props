@@ -4,7 +4,6 @@
     <Company>Microsoft</Company>
     <Copyright>Copyright © Sergiy Seletsky 2020</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <DebugType>Full</DebugType>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
