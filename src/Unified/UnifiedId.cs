@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Text;
@@ -295,14 +294,15 @@ namespace Unified
                 throw new FormatException($"Argument '{nameof(hex)}'({hex}) should have length of {Length} symbols, actual length is {hex.Length} symbols.");
             }
 
-            if(!Array.Exists(Symbols.Take(16).ToArray(), x => x == hex[0]))
+            var firstIndex = Array.LastIndexOf(Symbols, hex[0]);
+            if (firstIndex < 0 || firstIndex >= 16)
             {
                 throw new FormatException($"Argument '{nameof(hex)}'({hex}) should contain only allowed capital symbols from '0' to 'F' for first symbol.");
             }
 
             foreach (var symbol in hex)
             {
-                if(!Array.Exists(Symbols, x => x == symbol))
+                if(Array.LastIndexOf(Symbols, symbol) == -1)
                 {
                     throw new FormatException($"Argument '{nameof(hex)}'({hex}) should contain only allowed capital symbols from '0' to 'V'.");
                 }
@@ -333,7 +333,8 @@ namespace Unified
                 return false;
             }
 
-            if (!Array.Exists(Symbols.Take(16).ToArray(), x => x == hex[0]))
+            var firstIndex = Array.LastIndexOf(Symbols, hex[0]);
+            if (firstIndex < 0 || firstIndex >= 16)
             {
                 id = Empty;
                 return false;
@@ -341,8 +342,8 @@ namespace Unified
 
             foreach (var symbol in hex)
             {
-                if (!Array.Exists(Symbols, x => x == symbol))
-                {
+               if (Array.LastIndexOf(Symbols, symbol) == -1)
+               {
                     id = Empty;
                     return false;
                 }
@@ -646,12 +647,12 @@ namespace Unified
         private static ulong Decode(string hex)
         {
             ulong decodedHash = 0;
-            for (byte grade = 0; grade < hex.Length; grade++)
+            for (byte grade = 0; grade < Length; grade++)
             {
                 var index = (ulong)Array.LastIndexOf(Symbols, hex[grade]);
 
                 // slice grade and convert to number
-                var slice = index << (X32Shift * (hex.Length - grade - 1));
+                var slice = index << (X32Shift * (Length - grade - 1));
                 decodedHash += slice;
             }
 
