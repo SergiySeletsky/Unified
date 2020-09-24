@@ -10,7 +10,7 @@ namespace Unified
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     [Serializable]
-    public struct UnifiedId : IComparable, ICloneable, ISerializable,
+    public readonly struct UnifiedId : IComparable, ICloneable, ISerializable,
     IComparable<UnifiedId>, IEquatable<UnifiedId>,
     IComparable<string>, IEquatable<string>,
     IComparable<ulong>, IEquatable<ulong>,
@@ -616,7 +616,7 @@ namespace Unified
         /// Generate HEX32 from ulong hash.
         /// </summary>
         /// <param name="hash">Hash.</param>
-        /// <param name="length">Length of HEX. Should be 13 for full x32 encode.</param>
+        /// <param name="length">Length of HEX32. Should be 13 for full x32 encode.</param>
         /// <returns>HEX32.</returns>
         private static string NewHex(ulong hash, byte length = Length)
         {
@@ -642,7 +642,7 @@ namespace Unified
         /// <summary>
         /// Decode HEX32 to Number.
         /// </summary>
-        /// <param name="hex">String HEX.</param>s
+        /// <param name="hex">String HEX32.</param>s
         /// <returns>Unsigned x64 integer.</returns>
         private static ulong Decode(string hex)
         {
