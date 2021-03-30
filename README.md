@@ -163,4 +163,4 @@ We recommend using Unified Id for data sets size up to 10 billion Ids. More will
 
 <hr>
 
-© 2020 Sergiy Seletsky. All rights reserved.
+© 2021 Serhii Seletskyi. All rights reserved.
