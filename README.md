@@ -1,5 +1,3 @@
-<img src="https://raw.githubusercontent.com/SergiySeletsky/Unified/master/docs/logo.png" width="128" height="128" />
-
 # **Unified Id** - the identity of your data.
 
 [![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/SergiySeletsky/Unified/compare)
@@ -13,6 +11,7 @@ What is Unified Id?
 If GUID is too heavy for your application but you need a random global Id that can be used as a string or long basic type, you are in right place.
 
 What are the main advantages?
+
 | Feature | Unified | GUID |
 | ------ | ------ | ------ |
 | Size | 8 byte (13 as string) | 16 byte (36 as string)
@@ -161,6 +160,6 @@ Each item contain    : 610 elements +/-5%
 ```
 We recommend using Unified Id for data sets size up to 10 billion Ids. More will increase the chance of collision.
 
-<hr>
+
 
 © 2021 Serhii Seletskyi. All rights reserved.

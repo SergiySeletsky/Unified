@@ -1,8 +1,8 @@
 <Project>
 	<PropertyGroup Label="Projects metadata">
-		<Authors>Sergiy Seletsky</Authors>
+		<Authors>Serhii Seletskyi</Authors>
 		<Company>Microsoft</Company>
-		<Copyright>Copyright © Sergiy Seletsky 2021</Copyright>
+		<Copyright>Copyright © Serhii Seletskyi 2021</Copyright>
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
@@ -10,7 +10,7 @@
 	<PropertyGroup Label="Common properties">
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<CodeAnalysisRuleSet>..\..\code.ruleset</CodeAnalysisRuleSet>
-		<UnifiedVersion>1.0.5</UnifiedVersion>
+		<UnifiedVersion>1.0.6</UnifiedVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 	</PropertyGroup>
