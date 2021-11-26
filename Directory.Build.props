@@ -18,11 +18,9 @@
     <DebugType>Portable</DebugType>
   </PropertyGroup>
   <ItemGroup Label="Analyzer packages">
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.7.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="3.7.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="3.3.0" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.NetCore.Analyzers" Version="3.3.0" PrivateAssets="all" />
-    <PackageReference Include="SecurityCodeScan" Version="3.5.3" PrivateAssets="all" />
-    <PackageReference Include="Text.Analyzers" Version="2.6.4" PrivateAssets="all" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" PrivateAssets="all" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="4.0.1" PrivateAssets="all" />
+	  <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0" PrivateAssets="all" />
+	  <PackageReference Include="Text.Analyzers" Version="3.3.3" PrivateAssets="all" />
   </ItemGroup>
 </Project>

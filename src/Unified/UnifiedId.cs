@@ -244,7 +244,7 @@ namespace Unified
         {
             if (length == 0 || length >= Length)
             {
-                throw new ArgumentOutOfRangeException($"Argument {nameof(length)} is out of range, allowed value from 1 to 12.");
+                throw new ArgumentOutOfRangeException(nameof(length), $"Argument {nameof(length)} is out of range, allowed value from 1 to 12.");
             }
 
             return NewHex(hash, length);
@@ -379,7 +379,7 @@ namespace Unified
 
             if (bytes.Length == 0)
             {
-                throw new ArgumentOutOfRangeException($"Argument {nameof(bytes)} should not be empty.");
+                throw new ArgumentOutOfRangeException(nameof(bytes), $"Argument {nameof(bytes)} should not be empty.");
             }
 
             return new UnifiedId(NewHash(bytes));
@@ -394,7 +394,7 @@ namespace Unified
         {
             if(id == Guid.Empty)
             {
-                throw new ArgumentOutOfRangeException($"Argument {nameof(id)} should not be empty.");
+                throw new ArgumentOutOfRangeException(nameof(id), $"Argument {nameof(id)} should not be empty.");
             }
 
             return FromBytes(id.ToByteArray());
@@ -408,7 +408,7 @@ namespace Unified
         {
             if (number == 0)
             {
-                throw new ArgumentOutOfRangeException($"Argument {nameof(number)} should not be 0.");
+                throw new ArgumentOutOfRangeException(nameof(number), $"Argument {nameof(number)} should not be 0.");
             }
 
             var bytes = BitConverter.GetBytes(number);
@@ -423,7 +423,7 @@ namespace Unified
         {
             if (number == 0)
             {
-                throw new ArgumentOutOfRangeException($"Argument {nameof(number)} should not be 0.");
+                throw new ArgumentOutOfRangeException(nameof(number), $"Argument {nameof(number)} should not be 0.");
             }
 
             var bytes = BitConverter.GetBytes(number);
