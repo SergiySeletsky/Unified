@@ -10,9 +10,9 @@
     <SignAssembly>false</SignAssembly>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageIcon>icon.png</PackageIcon>
-    <AssemblyVersion>1.0.3.0</AssemblyVersion>
-    <FileVersion>1.0.3.0</FileVersion>
-    <Version>1.0.3</Version>
+    <AssemblyVersion>$(UnifiedVersion)</AssemblyVersion>
+    <FileVersion>$(UnifiedVersion)</FileVersion>
+    <Version>$(UnifiedVersion)</Version>
   </PropertyGroup>
 
   <ItemGroup>
