@@ -10,7 +10,7 @@
 	<PropertyGroup Label="Common properties">
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<CodeAnalysisRuleSet>..\..\code.ruleset</CodeAnalysisRuleSet>
-		<UnifiedVersion>1.0.5</UnifiedVersion>
+		<UnifiedVersion>1.0.6</UnifiedVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 	</PropertyGroup>
