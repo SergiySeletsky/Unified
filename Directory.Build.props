@@ -10,6 +10,7 @@
   <PropertyGroup Label="Common properties">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisRuleSet>..\..\code.ruleset</CodeAnalysisRuleSet>
+	<UnifiedVersion>1.0.4</UnifiedVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugType>Full</DebugType>
