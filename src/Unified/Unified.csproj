@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -14,12 +14,5 @@
     <FileVersion>$(UnifiedVersion)</FileVersion>
     <Version>$(UnifiedVersion)</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Include="..\..\docs\icon.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
 
 </Project>

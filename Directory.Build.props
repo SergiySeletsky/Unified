@@ -1,29 +1,34 @@
 <Project>
-  <PropertyGroup Label="Projects metadata">
-    <Authors>Sergiy Seletsky</Authors>
-    <Company>Microsoft</Company>
-    <Copyright>Copyright © Sergiy Seletsky 2021</Copyright>
-    <NeutralLanguage>en-US</NeutralLanguage>
-    <LangVersion>latest</LangVersion>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <PropertyGroup Label="Common properties">
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <CodeAnalysisRuleSet>..\..\code.ruleset</CodeAnalysisRuleSet>
-	<UnifiedVersion>1.0.5</UnifiedVersion>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
-	<PackageLicenseFile>LICENSE</PackageLicenseFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DebugType>Full</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DebugType>Portable</DebugType>
-  </PropertyGroup>
-  <ItemGroup Label="Analyzer packages">
-	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" PrivateAssets="all" />
-	  <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="4.0.1" PrivateAssets="all" />
-	  <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0" PrivateAssets="all" />
-	  <PackageReference Include="Text.Analyzers" Version="3.3.3" PrivateAssets="all" />
-  </ItemGroup>
+	<PropertyGroup Label="Projects metadata">
+		<Authors>Sergiy Seletsky</Authors>
+		<Company>Microsoft</Company>
+		<Copyright>Copyright © Sergiy Seletsky 2021</Copyright>
+		<NeutralLanguage>en-US</NeutralLanguage>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<PropertyGroup Label="Common properties">
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<CodeAnalysisRuleSet>..\..\code.ruleset</CodeAnalysisRuleSet>
+		<UnifiedVersion>1.0.5</UnifiedVersion>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+		<DebugType>Full</DebugType>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<DebugType>Portable</DebugType>
+	</PropertyGroup>
+	<ItemGroup Label="Analyzer packages">
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="4.0.1" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0" PrivateAssets="all" />
+		<PackageReference Include="Text.Analyzers" Version="3.3.3" PrivateAssets="all" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="..\..\LICENSE" Pack="true" PackagePath="" />
+		<None Include="..\..\README.md" Pack="true" PackagePath="" />
+		<None Include="..\..\docs\icon.png" Pack="true" PackagePath="" />
+	</ItemGroup>
 </Project>
