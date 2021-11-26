@@ -2,15 +2,17 @@
   <PropertyGroup Label="Projects metadata">
     <Authors>Sergiy Seletsky</Authors>
     <Company>Microsoft</Company>
-    <Copyright>Copyright © Sergiy Seletsky 2020</Copyright>
+    <Copyright>Copyright © Sergiy Seletsky 2021</Copyright>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Label="Common properties">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisRuleSet>..\..\code.ruleset</CodeAnalysisRuleSet>
-	<UnifiedVersion>1.0.4</UnifiedVersion>
+	<UnifiedVersion>1.0.5</UnifiedVersion>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugType>Full</DebugType>
