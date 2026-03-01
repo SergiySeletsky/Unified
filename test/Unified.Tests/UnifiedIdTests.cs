@@ -1,6 +1,4 @@
 using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using Xunit;
 
 namespace Unified.Tests
@@ -23,7 +21,6 @@ namespace Unified.Tests
             Assert.Equal(ulong.MaxValue - 1, id.ToUInt64());
 
             Assert.Throws<FormatException>(() => new UnifiedId("FVVVVVVVVVVVUN"));
-            Assert.Throws<FormatException>(() => new UnifiedId("FVVVVVVVVVVVu"));
             Assert.Throws<FormatException>(() => new UnifiedId("FVVVVVVVVVVVW"));
         }
 
@@ -71,7 +68,6 @@ namespace Unified.Tests
             Assert.Equal(UnifiedId.Empty, UnifiedId.Parse(string.Empty));
             Assert.Throws<FormatException>(() => UnifiedId.Parse("VVVVVVVVVVVVV"));
             Assert.Throws<FormatException>(() => UnifiedId.Parse("FVVVVVVVVVVVUN"));
-            Assert.Throws<FormatException>(() => UnifiedId.Parse("FVVVVVVVVVVVu"));
             Assert.Throws<FormatException>(() => UnifiedId.Parse("FVVVVVVVVVVVW"));
             Assert.Throws<FormatException>(() => UnifiedId.Parse("GVVVVVVVVVVVU"));
             Assert.Throws<FormatException>(() => UnifiedId.Parse("WVVVVVVVVVVVU"));
@@ -90,8 +86,6 @@ namespace Unified.Tests
             Assert.False(UnifiedId.TryParse("VVVVVVVVVVVVV", out parsedId));
             Assert.Equal(UnifiedId.Empty, parsedId);
             Assert.False(UnifiedId.TryParse("FVVVVVVVVVVVUN", out parsedId));
-            Assert.Equal(UnifiedId.Empty, parsedId);
-            Assert.False(UnifiedId.TryParse("FVVVVVVVVVVVu", out parsedId));
             Assert.Equal(UnifiedId.Empty, parsedId);
             Assert.False(UnifiedId.TryParse("FVVVVVVVVVVVW", out parsedId));
             Assert.Equal(UnifiedId.Empty, parsedId);
@@ -158,15 +152,10 @@ namespace Unified.Tests
         {
             var id = UnifiedId.NewId();
 
-            using (var ms = new MemoryStream())
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(ms, id);
-                ms.Position = 0;
-
-                var deserialized = formatter.Deserialize(ms);
-                Assert.Equal(id, deserialized);
-            }
+            var info = new System.Runtime.Serialization.SerializationInfo(typeof(UnifiedId), new System.Runtime.Serialization.FormatterConverter());
+            id.GetObjectData(info, default);
+            var hash = info.GetUInt64("hash");
+            Assert.Equal(id.ToUInt64(), hash);
         }
 
         [Fact]

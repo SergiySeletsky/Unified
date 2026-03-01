@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.Json;
 using Newtonsoft.Json;
@@ -67,21 +66,9 @@ namespace Unified.Tests
         }
 
         [Fact]
-        public void BinaryFormatterTest()
+        public void SerializationInfoTest()
         {
             var contract = new TestContract { Id = new UnifiedId(8U) };
-            var bf = new BinaryFormatter();
-            using(var ms = new MemoryStream())
-            {
-                bf.Serialize(ms, contract);
-                var arr = ms.ToArray();
-                Assert.Equal(289, arr.Length);
-
-                ms.Position = 0;
-                var deserialized = (TestContract)bf.Deserialize(ms);
-                Assert.Equal(contract.Id, deserialized.Id);
-            }
-
             var info = new SerializationInfo(typeof(UnifiedId), new FormatterConverter());
             contract.Id.GetObjectData(info, default);
             var hash = info.GetUInt64("hash");

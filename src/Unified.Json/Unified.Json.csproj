@@ -16,11 +16,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Unified\Unified.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" />
+    <PackageReference Update="Microsoft.CodeAnalysis.CSharp.Features" Version="5.0.0" />
+    <PackageReference Update="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.103" />
+    <PackageReference Update="Text.Analyzers" Version="3.3.4" />
   </ItemGroup>
 
 </Project>

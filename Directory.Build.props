@@ -10,7 +10,7 @@
 	<PropertyGroup Label="Common properties">
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<CodeAnalysisRuleSet>..\..\code.ruleset</CodeAnalysisRuleSet>
-		<UnifiedVersion>1.0.6</UnifiedVersion>
+		<UnifiedVersion>1.0.7</UnifiedVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 	</PropertyGroup>
@@ -21,10 +21,10 @@
 		<DebugType>Portable</DebugType>
 	</PropertyGroup>
 	<ItemGroup Label="Analyzer packages">
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="4.0.1" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="5.0.0" PrivateAssets="all" />
 		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0" PrivateAssets="all" />
-		<PackageReference Include="Text.Analyzers" Version="3.3.3" PrivateAssets="all" />
+		<PackageReference Include="Text.Analyzers" Version="3.3.4" PrivateAssets="all" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\..\LICENSE" Pack="true" PackagePath="" />
