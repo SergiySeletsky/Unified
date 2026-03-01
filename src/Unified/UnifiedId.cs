@@ -289,6 +289,8 @@ namespace Unified
                 return Empty;
             }
 
+            hex = hex.ToUpperInvariant();
+
             if (hex.Length != Length)
             {
                 throw new FormatException($"Argument '{nameof(hex)}'({hex}) should have length of {Length} symbols, actual length is {hex.Length} symbols.");
@@ -326,6 +328,8 @@ namespace Unified
                 id = Empty;
                 return false;
             }
+
+            hex = hex.ToUpperInvariant();
 
             if (hex.Length != Length)
             {
