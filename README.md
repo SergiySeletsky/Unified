@@ -2,7 +2,7 @@
 
 [![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://github.com/SergiySeletsky/Unified/compare)
 [![Build](https://github.com/SergiySeletsky/Unified/workflows/Build/badge.svg)](https://github.com/SergiySeletsky/Unified/actions?query=workflow:Build)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Unified&metric=alert_status)](https://sonarcloud.io/dashboard?id=Unified)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=unified&metric=alert_status)](https://sonarcloud.io/summary/overall?id=unified)
 [![NuGet](https://img.shields.io/nuget/v/Unified)](https://www.nuget.org/packages/Unified)
 
 ## Why
