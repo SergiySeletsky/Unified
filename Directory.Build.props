@@ -6,13 +6,23 @@
 		<NeutralLanguage>en-US</NeutralLanguage>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
 	<PropertyGroup Label="Common properties">
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<CodeAnalysisRuleSet>..\..\code.ruleset</CodeAnalysisRuleSet>
 		<UnifiedVersion>1.0.7</UnifiedVersion>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	</PropertyGroup>
+	<PropertyGroup Label="Analyzers">
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<AnalysisLevel>latest-all</AnalysisLevel>
+		<AnalysisMode>Recommended</AnalysisMode>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+	</PropertyGroup>
+	<PropertyGroup Label="Build determinism">
+		<Deterministic>true</Deterministic>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
 		<DebugType>Full</DebugType>
@@ -21,9 +31,6 @@
 		<DebugType>Portable</DebugType>
 	</PropertyGroup>
 	<ItemGroup Label="Analyzer packages">
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="5.0.0" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Features" Version="5.0.0" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0" PrivateAssets="all" />
 		<PackageReference Include="Text.Analyzers" Version="3.3.4" PrivateAssets="all" />
 	</ItemGroup>
 	<ItemGroup>
