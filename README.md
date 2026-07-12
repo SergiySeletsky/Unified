@@ -72,6 +72,26 @@ class Program
 }
 ```
 
+### System.Text.Json
+
+Prefer `System.Text.Json`? Install the [`Unified.Text.Json`](https://www.nuget.org/packages/Unified.Text.Json) package and register the converter:
+
+```c#
+using System.Text.Json;
+using Unified.Text.Json;
+
+var options = new JsonSerializerOptions();
+options.Converters.Add(new UnifiedIdJsonConverter());
+
+var json = JsonSerializer.Serialize(user, options); // { "UserId": "AFHUTVDSGUGVQ" }
+```
+
+The converter also supports `UnifiedId` as a dictionary key.
+
+### Modern .NET
+
+On `net8.0`+ targets `UnifiedId` implements `IParsable<UnifiedId>`, `ISpanParsable<UnifiedId>`, `IFormattable` and `ISpanFormattable`, so it participates in generic parsing, ASP.NET Core model binding and allocation-free (`Span`-based) formatting — and can serve as the backing value for strongly-typed id libraries. The package multi-targets `netstandard2.0;net8.0;net10.0`.
+
 ## How it works
 
 ```c#

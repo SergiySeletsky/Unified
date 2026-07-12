@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Unified.Json\Unified.Json.csproj" />
+    <ProjectReference Include="..\..\src\Unified.Text.Json\Unified.Text.Json.csproj" />
     <ProjectReference Include="..\..\src\Unified\Unified.csproj" />
   </ItemGroup>
 

@@ -15,6 +15,9 @@ namespace Unified
     IComparable<string>, IEquatable<string>,
     IComparable<ulong>, IEquatable<ulong>,
     IComparable<long>, IEquatable<long>
+#if NET8_0_OR_GREATER
+    , IParsable<UnifiedId>, ISpanParsable<UnifiedId>, IFormattable, ISpanFormattable
+#endif
     {
         /// <summary>
         /// Empty UnifiedId.
@@ -486,7 +489,7 @@ namespace Unified
         }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is ulong castedUInt64)
             {
@@ -515,7 +518,7 @@ namespace Unified
         }
 
         /// <inheritdoc/>
-        public bool Equals(string other)
+        public bool Equals(string? other)
         {
             return NewHex(hash).Equals(other, StringComparison.InvariantCulture);
         }
@@ -533,7 +536,7 @@ namespace Unified
         }
 
         /// <inheritdoc/>
-        public int CompareTo(object obj)
+        public int CompareTo(object? obj)
         {
             if (!(obj is UnifiedId))
             {
@@ -562,9 +565,11 @@ namespace Unified
         }
 
         /// <inheritdoc/>
-        public int CompareTo(string other)
+        public int CompareTo(string? other)
         {
-            if (string.IsNullOrWhiteSpace(other))
+            // The explicit null check narrows nullability on netstandard2.0, whose reference
+            // assemblies lack the [NotNullWhen] annotation on string.IsNullOrWhiteSpace.
+            if (other is null || string.IsNullOrWhiteSpace(other))
             {
                 return 1;
             }
@@ -662,5 +667,106 @@ namespace Unified
 
             return decodedHash;
         }
+
+#if NET8_0_OR_GREATER
+        /// <inheritdoc/>
+        /// <remarks>The <paramref name="provider"/> is ignored: UnifiedId has a single canonical HEX32 representation.</remarks>
+        public static UnifiedId Parse(string s, IFormatProvider? provider)
+        {
+            return Parse(s);
+        }
+
+        /// <inheritdoc/>
+        /// <remarks>The <paramref name="provider"/> is ignored: UnifiedId has a single canonical HEX32 representation.</remarks>
+        public static bool TryParse(string? s, IFormatProvider? provider, out UnifiedId result)
+        {
+            return TryParse(s ?? string.Empty, out result);
+        }
+
+        /// <inheritdoc/>
+        /// <remarks>The <paramref name="provider"/> is ignored: UnifiedId has a single canonical HEX32 representation.</remarks>
+        public static UnifiedId Parse(ReadOnlySpan<char> s, IFormatProvider? provider)
+        {
+            if (TryParse(s, provider, out var result))
+            {
+                return result;
+            }
+
+            // Whitespace/empty parses to Empty; anything else throws the descriptive FormatException
+            // from the string overload. Only the (rare) non-happy path allocates.
+            return Parse(s.ToString());
+        }
+
+        /// <inheritdoc/>
+        /// <remarks>The <paramref name="provider"/> is ignored: UnifiedId has a single canonical HEX32 representation.</remarks>
+        public static bool TryParse(ReadOnlySpan<char> s, IFormatProvider? provider, out UnifiedId result)
+        {
+            result = Empty;
+
+            if (s.Length != Length)
+            {
+                return false;
+            }
+
+            ulong decoded = 0;
+            for (byte grade = 0; grade < Length; grade++)
+            {
+                var symbol = char.ToUpperInvariant(s[grade]);
+                var index = Array.LastIndexOf(Symbols, symbol);
+
+                // Every symbol must be in the alphabet; the first symbol is limited to the low 16 (0-F).
+                if (index == -1 || (grade == 0 && index >= 16))
+                {
+                    return false;
+                }
+
+                decoded += (ulong)index << (X32Shift * (Length - grade - 1));
+            }
+
+            // The all-zero value is the Empty representation and is not a parseable id.
+            if (decoded == 0)
+            {
+                return false;
+            }
+
+            result = new UnifiedId(decoded);
+            return true;
+        }
+
+        /// <inheritdoc/>
+        /// <remarks>The <paramref name="format"/> and <paramref name="formatProvider"/> are ignored: UnifiedId has a single canonical HEX32 representation.</remarks>
+        public string ToString(string? format, IFormatProvider? formatProvider)
+        {
+            return NewHex(hash);
+        }
+
+        /// <inheritdoc/>
+        /// <remarks>The <paramref name="format"/> and <paramref name="provider"/> are ignored: UnifiedId has a single canonical HEX32 representation. Requires a destination of at least 13 characters.</remarks>
+        public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider? provider)
+        {
+            if (destination.Length < Length)
+            {
+                charsWritten = 0;
+                return false;
+            }
+
+            if (hash == 0)
+            {
+                destination.Slice(0, Length).Fill('0');
+                charsWritten = Length;
+                return true;
+            }
+
+            for (byte grade = 0; grade < Length; grade++)
+            {
+                var slice = hash >> (X32Shift * (Length - grade - 1));
+                var index = (byte)(slice & 31);
+                destination[grade] = Symbols[index];
+            }
+
+            charsWritten = Length;
+            return true;
+        }
+#endif
     }
 }
