@@ -1,8 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net8.0;net10.0</TargetFrameworks>
     <Description>Unified is immutable high performance Id library.</Description>
+    <!-- Legacy ISerializable/GetObjectData support is intentionally retained for back-compat.
+         The formatter-based serialization pattern is obsolete on modern targets (SYSLIB0050). -->
+    <NoWarn>$(NoWarn);SYSLIB0050</NoWarn>
     <PackageProjectUrl>https://github.com/SergiySeletsky/Unified</PackageProjectUrl>
     <RepositoryUrl>https://github.com/SergiySeletsky/Unified</RepositoryUrl>
     <PackageTags>unified, scalable, unique, id, generator, distributed, partitioning, sharding, snowflake</PackageTags>

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Unified.Text.Json is a System.Text.Json converter for UnifiedId to use it as a ValueObject.</Description>
+    <PackageProjectUrl>https://github.com/SergiySeletsky/Unified</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SergiySeletsky/Unified</RepositoryUrl>
+    <PackageTags>unified, scalable, unique, id, generator, distributed, partitioning, sharding, json, system.text.json</PackageTags>
+    <PackageReleaseNotes>System.Text.Json support</PackageReleaseNotes>
+    <SignAssembly>false</SignAssembly>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <AssemblyVersion>$(UnifiedVersion)</AssemblyVersion>
+    <FileVersion>$(UnifiedVersion)</FileVersion>
+    <Version>$(UnifiedVersion)</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Unified\Unified.csproj" />
+  </ItemGroup>
+
+</Project>

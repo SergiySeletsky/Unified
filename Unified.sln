@@ -20,6 +20,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unified.Tests", "test\Unifi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unified.Json", "src\Unified.Json\Unified.Json.csproj", "{4AB878C6-3CEC-47EE-9AED-F2D3A22199F2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Unified.Text.Json", "src\Unified.Text.Json\Unified.Text.Json.csproj", "{AA0BFEB3-DC7D-4866-841D-E63F2DA77768}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{4AB878C6-3CEC-47EE-9AED-F2D3A22199F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AB878C6-3CEC-47EE-9AED-F2D3A22199F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AB878C6-3CEC-47EE-9AED-F2D3A22199F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA0BFEB3-DC7D-4866-841D-E63F2DA77768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA0BFEB3-DC7D-4866-841D-E63F2DA77768}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA0BFEB3-DC7D-4866-841D-E63F2DA77768}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA0BFEB3-DC7D-4866-841D-E63F2DA77768}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,6 +10,10 @@ jobs:
   build:
     name: Build
     runs-on: windows-latest
+    env:
+      # Exposed at job level so steps can gate on its presence via `if: env.SONAR_TOKEN != ''`.
+      # (The `secrets` context is not available directly in `if:` conditions.)
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     steps:
     - uses: actions/checkout@v4
@@ -27,7 +31,17 @@ jobs:
         dotnet-quality: 'preview'
     - name: Install dependencies
       run: dotnet restore
+
+    # --- Required gate: build + test must pass regardless of SonarCloud availability ---
+    - name: Build
+      run: dotnet build --configuration Debug --no-restore
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal --logger trx --collect:"XPlat Code Coverage" --settings ./test/coverlet.runsettings
+
+    # --- SonarCloud analysis: optional. Runs only when SONAR_TOKEN is present and never fails
+    #     the job (continue-on-error), so an expired/rejected token cannot block a green build. ---
     - name: Cache SonarCloud packages
+      if: env.SONAR_TOKEN != ''
       uses: actions/cache@v4
       with:
           path: ~\sonar\cache
@@ -35,18 +49,21 @@ jobs:
           restore-keys: ${{ runner.os }}-sonar
     - name: Cache SonarCloud scanner
       id: cache-sonar-scanner
+      if: env.SONAR_TOKEN != ''
       uses: actions/cache@v4
       with:
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
     - name: Install SonarCloud scanner
-      if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+      if: env.SONAR_TOKEN != '' && steps.cache-sonar-scanner.outputs.cache-hit != 'true'
       shell: powershell
       run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-    - name: Build and analyze
+    - name: SonarCloud analyze
+      if: env.SONAR_TOKEN != ''
+      continue-on-error: true  # analysis is advisory; credential/infra issues must not fail the build
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -54,5 +71,4 @@ jobs:
       run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"unified" /o:"testasm" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="**/TestResults/**/coverage.opencover.xml" /d:sonar.cs.vstest.reportsPaths="**/TestResults/*.trx"
           dotnet build --configuration Debug --no-restore
-          dotnet test --no-restore --verbosity normal --logger trx --collect:"XPlat Code Coverage" --settings ./test/coverlet.runsettings
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
